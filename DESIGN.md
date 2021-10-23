@@ -4,14 +4,13 @@
 
 ### Question
 
-- id: OBJECTID
+- id: UUID
 - question: STRING
 - createdAt: TIMESTAMP
 - votesYes: INT
 - votesNo: INT
-- endingAt: TIMESTAMP
-- expireAt: TIMESTAMP
 - createdBy: STRING
+- active: BOOL
 
 ## REST API Design:
 
@@ -19,7 +18,6 @@
 /api/createQuestion
 Payload: JSON
 - question: STRING
-- endingAt: TIMESTAMP
 - createdBy: STRING
 
 Return: JSON

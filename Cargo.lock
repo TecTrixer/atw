@@ -310,6 +310,7 @@ dependencies = [
  "dotenv",
  "mongodb",
  "serde",
+ "uuid 0.6.5",
 ]
 
 [[package]]
@@ -405,7 +406,7 @@ dependencies = [
  "serde",
  "serde_bytes",
  "serde_json",
- "uuid",
+ "uuid 0.8.2",
 ]
 
 [[package]]
@@ -1251,7 +1252,7 @@ dependencies = [
  "trust-dns-proto 0.20.3",
  "trust-dns-resolver 0.20.3",
  "typed-builder",
- "uuid",
+ "uuid 0.8.2",
  "version_check",
  "webpki",
  "webpki-roots",
@@ -2323,6 +2324,15 @@ dependencies = [
  "idna",
  "matches",
  "percent-encoding",
+]
+
+[[package]]
+name = "uuid"
+version = "0.6.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e1436e58182935dcd9ce0add9ea0b558e8a87befe01c1a301e6020aeb0876363"
+dependencies = [
+ "cfg-if 0.1.10",
 ]
 
 [[package]]

@@ -1,9 +1,9 @@
-mod handlers;
-pub mod structs;
 use actix_web::{web, App, HttpServer};
-use handlers::{vote_no, vote_yes};
+use handlers::{create_question, hello_world, vote_no, vote_yes};
 #[macro_use]
 extern crate diesel_migrations;
+
+#[macro_use]
 extern crate diesel;
 extern crate dotenv;
 
@@ -11,6 +11,11 @@ use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use dotenv::dotenv;
 use std::env;
+
+mod handlers;
+mod queries;
+mod schema;
+mod structs;
 // use diesel_migrations::embedded_migrations;
 
 embed_migrations!();
@@ -23,6 +28,8 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .route("/api/voteNo/{id}", web::get().to(vote_no))
             .route("/api/voteYes/{id}", web::get().to(vote_yes))
+            .route("/api/test", web::get().to(hello_world))
+            .route("/api/createQuestion", web::post().to(create_question))
     })
     .bind("0.0.0.0:3000")?
     .run()
