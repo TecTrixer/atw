@@ -1,4 +1,4 @@
-use crate::structs::createQuestionDetails;
+use crate::structs::CreateQuestionDetails;
 use actix_web::{web, HttpResponse};
 
 pub async fn vote_no(web::Path(id): web::Path<String>) -> HttpResponse {
