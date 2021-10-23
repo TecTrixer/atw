@@ -77,7 +77,23 @@ pub fn get_question_query() -> Result<Question, anyhow::Error> {
     match diesel::sql_query("SELECT * FROM questions WHERE active = true ORDER BY random() LIMIT 1")
         .load::<Question>(&connection)
     {
-        Ok(x) => Ok(x[0].clone()),
+        Ok(x) => {
+            if x.len() == 0 {
+                return Err(anyhow::Error::msg("No question found"));
+            }
+            Ok(x[0].clone())
+        }
+        Err(x) => Err(anyhow::Error::new(x)),
+    }
+}
+
+pub fn get_result_query(identifier: Uuid) -> Result<Question, anyhow::Error> {
+    let connection = establish_connection();
+    match diesel::update(questions.filter(id.eq(identifier)))
+        .set(active.eq(false))
+        .get_result::<Question>(&connection)
+    {
+        Ok(x) => Ok(x),
         Err(x) => Err(anyhow::Error::new(x)),
     }
 }

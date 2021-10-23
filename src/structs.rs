@@ -28,3 +28,12 @@ pub struct GetQuestion {
     pub question: String,
     pub created_by: String,
 }
+
+#[derive(Serialize)]
+pub struct ResultQuestion {
+    pub question: String,
+    pub votes_yes: i32,
+    pub votes_no: i32,
+    pub created_by: String,
+    pub created_at: u64,
+}
