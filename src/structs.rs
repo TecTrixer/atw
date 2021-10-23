@@ -1,10 +1,10 @@
 use crate::schema::*;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
 use uuid::Uuid;
 
 // Struct which is being posted when calling /api/createQuestion
-#[derive(Clone, Debug, Queryable, Insertable)]
+#[derive(QueryableByName, Clone, Debug, Queryable, Serialize, Insertable)]
 #[table_name = "questions"]
 pub struct Question {
     pub id: Uuid,
@@ -18,6 +18,13 @@ pub struct Question {
 
 #[derive(Deserialize)]
 pub struct CreateQuestion {
+    pub question: String,
+    pub created_by: String,
+}
+
+#[derive(Serialize)]
+pub struct GetQuestion {
+    pub id: Uuid,
     pub question: String,
     pub created_by: String,
 }

@@ -1,5 +1,5 @@
 use actix_web::{web, App, HttpServer};
-use handlers::{create_question, hello_world, vote_no, vote_yes};
+use handlers::{create_question, get_question, hello_world, vote_no, vote_yes};
 #[macro_use]
 extern crate diesel_migrations;
 
@@ -30,6 +30,7 @@ async fn main() -> std::io::Result<()> {
             .route("/api/voteYes/{id}", web::get().to(vote_yes))
             .route("/api/test", web::get().to(hello_world))
             .route("/api/createQuestion", web::post().to(create_question))
+            .route("/api/getQuestion", web::get().to(get_question))
     })
     .bind("0.0.0.0:3000")?
     .run()

@@ -1,6 +1,5 @@
-// use crate::structs::Question;
-use crate::queries::{create_question_query, vote_no_query, vote_yes_query};
-use crate::structs::{CreateQuestion, Question};
+use crate::queries::{create_question_query, get_question_query, vote_no_query, vote_yes_query};
+use crate::structs::{CreateQuestion, GetQuestion, Question};
 use actix_web::{web, HttpResponse};
 use serde_json;
 use uuid::Uuid;
@@ -45,6 +44,19 @@ pub async fn create_question(input: String) -> HttpResponse {
         Ok(x) => HttpResponse::Ok().json(x.to_string()),
         Err(x) => HttpResponse::InternalServerError().json(x.to_string()),
     }
+}
+
+pub async fn get_question() -> HttpResponse {
+    let quest: Question = match get_question_query() {
+        Ok(x) => x,
+        Err(x) => return HttpResponse::InternalServerError().json(x.to_string()),
+    };
+    let res: GetQuestion = GetQuestion {
+        id: quest.id,
+        question: quest.question,
+        created_by: quest.created_by,
+    };
+    HttpResponse::Ok().json(res)
 }
 
 pub async fn hello_world() -> HttpResponse {
